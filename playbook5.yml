@@ -1,0 +1,16 @@
+- name: Install git and clone a remote repo from GitHub
+  hosts: all
+  become: true   # 👈 This gives root privileges
+  tasks:
+    - name: Install git
+      apt:
+        name: git
+        state: present
+        update_cache: yes
+
+    - name: Clone a remote repo
+      git:
+        repo: https://github.com/IntelliqDevops/FunctionalTesting.git
+        dest: /opt/functional-testing
+        version: master
+
