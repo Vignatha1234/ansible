@@ -1,0 +1,17 @@
+---
+- name: Delete if a file is executable
+  hosts: all
+  tasks:
+    - name: Caputer file info
+      stat:
+        path: /tmp/file1
+      register: a
+    - name: Display output of the above module
+      debug: 
+        var: a
+    - name: Delete if the file is executable
+      file:
+        name: /tmp/file1
+        state: absent
+      when: a.stat.executable == true
+...
