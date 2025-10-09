@@ -1,4 +1,3 @@
-
 ---
 - name: Configure Apache/HTTPD on all servers
   hosts: all
@@ -24,13 +23,14 @@
 
     - name: Deploy custom index.html file
       copy:
-        content: "IntelliQIT"
+        content: "Welcome to IntelliQIT — managed by Ansible"
         dest: "{{ web_root }}/index.html"
 
-    - name: Restart web server
+    - name: Enable and restart web server
       service:
         name: "{{ web_service }}"
         state: restarted
+        enabled: yes
 
     - name: Verify HTTP response on all servers
       uri:
@@ -39,7 +39,5 @@
       loop:
         - http://172.31.23.201
         - http://172.31.30.222
-        - http://172.31.22.126
-...
-
+        - http://172.31.26.3
 
